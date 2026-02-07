@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine?</title>
+
+<style>
+    body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Monaco, monospace;
+        background-color: #E695DD;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* 💘 sfondo cuori */
+    #hearts-background {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.3;
+    }
+
+    .heart {
+        position: absolute;
+        font-size: 30px;
+        animation: float 10s infinite ease-in-out;
+    }
+
+    @keyframes float {
+        0%,100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+
+    #container {
+        text-align: center;
+        z-index: 1;
+    }
+
+    h1 {
+        margin-bottom: 25px;
+    }
+
+    img {
+        max-width: 250px;
+        margin-bottom: 20px;
+        z-index: 1;
+    }
+
+    button {
+        font-size: 20px;
+        padding: 15px 30px;
+        margin: 10px;
+        cursor: pointer;
+        border: none;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative;
+        z-index: 10;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    #yesBtn {
+        background-color: #ff69b4;
+        color: white;
+    }
+
+    #noBtn {
+        background-color: #9370db;
+        color: white;
+        position: absolute;
+    }
+</style>
+</head>
+
+<body>
+
+<div id="hearts-background"></div>
+
+<div id="container">
+    <img src="foto1.png" alt="foto">
+    <h1>Will u be my Valentine? 💖</h1>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+</div>
+
+<script>
+    /* 💘 cuori di sfondo */
+    const heartsBg = document.getElementById("hearts-background");
+    for (let i = 0; i < 40; i++) {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.textContent = "💘";
+        h.style.left = Math.random() * 100 + "%";
+        h.style.top = Math.random() * 100 + "%";
+        h.style.animationDelay = Math.random() * 5 + "s";
+        h.style.fontSize = 20 + Math.random() * 20 + "px";
+        heartsBg.appendChild(h);
+    }
+
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    /* 😈 NO che scappa */
+    noBtn.addEventListener("mouseenter", () => {
+        const margin = 40;
+        const maxX = window.innerWidth - noBtn.offsetWidth - margin;
+        const maxY = window.innerHeight - noBtn.offsetHeight - margin;
+
+        noBtn.style.left = Math.random() * maxX + "px";
+        noBtn.style.top = Math.random() * maxY + "px";
+    });
+
+    /* 💕 YES */
+    yesBtn.addEventListener("click", () => {
+        document.body.innerHTML = `
+            <div style="
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                height:100vh;
+                width:100vw;
+                background-image:url('fotopag2.jpg');
+                background-size:cover;
+                background-position:center;
+                font-family:Monaco, monospace;
+            ">
+                <div style="
+                    background:rgba(255,255,255,0.85);
+                    padding:40px;
+                    border-radius:20px;
+                    text-align:center;
+                ">
+                    <img src="fotopag2.jpg" style="max-width:250px; margin-bottom:20px;">
+                    <h1>Ah ecco 🥰</h1>
+                    <h2>…non avevi veramente scelta 😇</h2>
+                    <p>Buon San Valentino 💌</p>
+                    <button onclick="location.reload()">Changed your mind? 🤨</button>
+                </div>
+            </div>
+        `;
+    });
+</script>
+
+</body>
+</html>
